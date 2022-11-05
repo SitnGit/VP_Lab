@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WP lab - Confirmation Info</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+        table {
+            width:100%;
+        }
+        table, td, th {
+            border: 1px solid black;
+            padding: 3px 2px;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <header>
+        <h1>Balloon Order page - Order confirmation </h1>
+    </header>
+    <table>
+        <tr>
+            <th colspan="2">
+                Your Order Status
+            </th>
+        </tr>
+        <tr>
+            <td><b>Client Name </b></td>
+            <td th:text="${session.clientName}"></td>
+        </tr>
+        <tr>
+            <td><b>Client Address </b></td>
+            <td th:text="${session.clientAddress}"></td>
+        </tr>
+        <tr>
+            <td><b>Client IP Address</b></td>
+            <td th:text="${session.ipAddress}"></td>
+        </tr>
+        <tr>
+            <td><b>Client Browser</b></td>
+            <td th:text="${session.clientAgent}"></td>
+        </tr>
+        <tr>
+            <td><b>Balloon Color </b></td>
+            <td th:text="${session.color}"></td>
+        </tr>
+        <tr>
+            <td><b>Balloon Size </b></td>
+            <td th:text="${session.size}"></td>
+        </tr>
+    </table>
+    <div>
+        <form th:method="POST" th:action="@{/}">
+            <input type="submit" value="Log Out">
+        </form>
+    </div>
+
+
+</section>
+</body>
+</html>
