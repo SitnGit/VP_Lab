@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.web;
+package mk.ukim.finki.wp.lab.web.servlet;
 
 
 import mk.ukim.finki.wp.lab.service.BalloonService;
@@ -12,32 +12,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "balloon-order-servlet",urlPatterns = "/BalloonOrder")
-public class BalloonOrderServlet extends HttpServlet {
+@WebServlet(name = "balloon-list-servlet",urlPatterns = "")
+public class BalloonListServlet extends HttpServlet {
     private final BalloonService balloonService;
     private final SpringTemplateEngine springTemplateEngine;
 
-    public BalloonOrderServlet(SpringTemplateEngine springTemplateEngine,BalloonService balloonService) {
+    public BalloonListServlet(SpringTemplateEngine springTemplateEngine,BalloonService balloonService) {
         this.balloonService = balloonService;
         this.springTemplateEngine = springTemplateEngine;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getSession().getAttribute("color")==null)
-            resp.sendRedirect("");
-        else {
-            WebContext context = new WebContext(req, resp, req.getServletContext());
-            this.springTemplateEngine.process("deliveryInfo.html", context, resp.getWriter());
-        }
+        WebContext context = new WebContext(req,resp,req.getServletContext());
+        context.setVariable("balloons",this.balloonService.listAll());
+        this.springTemplateEngine.process("listBalloons.html",context,resp.getWriter());
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String size = req.getParameter("size").toString();
-        req.getSession().setAttribute("size", size);
-        resp.sendRedirect("/BalloonOrder");
+        String color = req.getParameter("color").toString();
+        req.getSession().setAttribute("color", color);
+        resp.sendRedirect("/selectBalloon");
 
     }
+
 }
