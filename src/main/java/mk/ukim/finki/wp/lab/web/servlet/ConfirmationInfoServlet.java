@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.web;
+package mk.ukim.finki.wp.lab.web.servlet;
 
 
 import mk.ukim.finki.wp.lab.service.BalloonService;
@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "confirmation-info-servlet",urlPatterns = "/ConfirmationInfo")
 public class ConfirmationInfoServlet extends HttpServlet {
@@ -24,24 +26,31 @@ public class ConfirmationInfoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getSession().getAttribute("color")==null)
-            resp.sendRedirect("");
-        else {
-            WebContext context = new WebContext(req, resp, req.getServletContext());
-            this.springTemplateEngine.process("confirmationInfo.html", context, resp.getWriter());
-        }
+
+        List<List<String>> orders = new ArrayList<>();
+        if(req.getSession().getAttribute("orders")!=null)
+            orders = (List<List<String>>) req.getSession().getAttribute("orders");
+
+        List<String> order = new ArrayList<>();
+        order.add(req.getSession().getAttribute("clientName").toString());
+        order.add(req.getSession().getAttribute("clientAddress").toString());
+        order.add(req.getSession().getAttribute("color").toString());
+        order.add(req.getSession().getAttribute("size").toString());
+
+        orders.add(order);
+
+        req.getSession().setAttribute("orders",orders);
+
+        WebContext context = new WebContext(req, resp, req.getServletContext());
+        this.springTemplateEngine.process("confirmationInfo.html", context, resp.getWriter());
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String clientName = req.getParameter("clientName").toString();
-        String clientAddress = req.getParameter("clientAddress").toString();
-        req.getSession().setAttribute("clientName", clientName);
-        req.getSession().setAttribute("clientAddress", clientAddress);
-        req.getSession().setAttribute("ipAddress", req.getRemoteAddr());
-        req.getSession().setAttribute("clientAgent", req.getHeader("User-Agent"));
-        resp.sendRedirect("/ConfirmationInfo");
+        req.getSession().invalidate();
+        resp.sendRedirect("");
 
     }
 }

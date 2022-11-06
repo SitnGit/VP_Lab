@@ -53,8 +53,14 @@
         </tr>
     </table>
     <div>
-        <form th:method="POST" th:action="@{/}">
+        <form th:method="POST" th:action="@{/ConfirmationInfo}">
             <input type="submit" value="Log Out">
+        </form>
+        <form th:method="GET" th:action="@{'/balloons'}">
+            <button type="submit" class="btn btn-sm btn-dark">To Balloons</button>
+        </form>
+        <form th:method="GET" th:action="@{'/balloons/orders'}">
+            <button type="submit" class="btn btn-sm btn-warning">To Orders</button>
         </form>
     </div>
 
