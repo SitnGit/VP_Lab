@@ -38,6 +38,9 @@ public class BalloonOrderServlet extends HttpServlet {
         req.getSession().setAttribute("clientAddress", clientAddress);
         req.getSession().setAttribute("ipAddress", req.getRemoteAddr());
         req.getSession().setAttribute("clientAgent", req.getHeader("User-Agent"));
+
+
+
         resp.sendRedirect("/ConfirmationInfo");
 
     }

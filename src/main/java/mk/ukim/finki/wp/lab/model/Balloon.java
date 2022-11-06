@@ -9,11 +9,11 @@ public class Balloon {
 
     private Manufacturer manufacturer;
 
-    public Balloon(String name, String description, Long id, Manufacturer manufacturer) {
+    public Balloon(String name, String description,Long id,  Manufacturer manufacturer) {
         this.name = name;
         this.description = description;
-        this.id = id;
         this.manufacturer = manufacturer;
+        this.id = id;
     }
 
 }

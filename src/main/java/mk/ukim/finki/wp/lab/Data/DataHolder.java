@@ -35,7 +35,7 @@ public class DataHolder {
         manufacturers.add(new Manufacturer(5L,"fifth","Macedonia","adress"));
     }
 
-    public Long generateId(){
+    public static Long generateId(){
         Random rand = new Random();
 
         long id = rand.nextLong(10000);

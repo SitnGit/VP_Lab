@@ -22,8 +22,8 @@ public class CheckColorFilter implements Filter {
 
         String path = request.getServletPath();
 
-        if (!"".equals(path) && color == null){
-            response.sendRedirect("");
+        if (!path.contains("/balloons") && !"/servlet".equals(path) && color == null){
+            response.sendRedirect("/balloons");
         }
         else {
             filterChain.doFilter(servletRequest,servletResponse);
