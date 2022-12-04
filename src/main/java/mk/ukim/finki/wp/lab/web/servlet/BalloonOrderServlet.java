@@ -33,9 +33,7 @@ public class BalloonOrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String clientName = req.getParameter("clientName").toString();
-        String clientAddress = req.getParameter("clientAddress").toString();
         req.getSession().setAttribute("clientName", clientName);
-        req.getSession().setAttribute("clientAddress", clientAddress);
         req.getSession().setAttribute("ipAddress", req.getRemoteAddr());
         req.getSession().setAttribute("clientAgent", req.getHeader("User-Agent"));
 

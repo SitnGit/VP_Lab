@@ -9,18 +9,18 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th scope="col">Client Name</th>
-        <th scope="col">Client adress</th>
+        <th scope="col">Date of Order Placement</th>
+        <th scope="col">Client UserName</th>
         <th scope="col">Balloon color</th>
         <th scope="col">Balloon size</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="order : ${session.orders}">
-        <td th:text="${order.get(0)}"></td>
-        <td th:text="${order.get(1)}"></td>
-        <td th:text="${order.get(2)}"></td>
-        <td th:text="${order.get(3)}"></td>
+    <tr th:each="order : ${orders}">
+        <td th:text="${#temporals.format(order.placedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${order.getUser().getUsername()}"></td>
+        <td th:text="${order.getBalloonColor()}"></td>
+        <td th:text="${order.getBalloonSize()}"></td>
     </tr>
     </tbody>
     <form th:method="GET" th:action="@{'/balloons'}">

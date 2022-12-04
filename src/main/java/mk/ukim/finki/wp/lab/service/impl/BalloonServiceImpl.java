@@ -2,7 +2,8 @@ package mk.ukim.finki.wp.lab.service.impl;
 
 import mk.ukim.finki.wp.lab.model.Balloon;
 import mk.ukim.finki.wp.lab.model.Manufacturer;
-import mk.ukim.finki.wp.lab.repository.BalloonRepository;
+import mk.ukim.finki.wp.lab.repository.impl.BalloonRepository;
+import mk.ukim.finki.wp.lab.repository.jpa.BalloonRepositoryJPA;
 import mk.ukim.finki.wp.lab.service.BalloonService;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +12,22 @@ import java.util.Optional;
 
 @Service
 public class BalloonServiceImpl implements BalloonService {
-    private final BalloonRepository balloonRep;
+    private final BalloonRepositoryJPA balloonRep;
 
-    public BalloonServiceImpl(BalloonRepository balloonRep) {
+    public BalloonServiceImpl(BalloonRepositoryJPA balloonRep) {
         this.balloonRep = balloonRep;
     }
 
     @Override
     public List<Balloon> listAll() {
-        return balloonRep.findAllBalloons();
+        return balloonRep.findAll();
     }
 
     @Override
     public List<Balloon> searchByNameOrDescription(String text) {
         if(text.isEmpty())
             throw new NullPointerException();
-        return balloonRep.findAllByNameOrDescription(text);
+        return balloonRep.findAllByNameOrDescriptionLike (text,text);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class BalloonServiceImpl implements BalloonService {
     public void createBalloon(String name, String description, Manufacturer manufacturer) {
         if(name == null || description == null || manufacturer == null)
             throw new IllegalArgumentException();
-        balloonRep.createBalloon(name,description,manufacturer);
+        balloonRep.save(new Balloon(name,description,manufacturer));
     }
 
     @Override

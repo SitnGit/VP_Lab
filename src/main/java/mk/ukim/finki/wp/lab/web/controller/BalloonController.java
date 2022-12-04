@@ -1,13 +1,18 @@
 package mk.ukim.finki.wp.lab.web.controller;
 
-import mk.ukim.finki.wp.lab.model.Balloon;
-import mk.ukim.finki.wp.lab.model.Manufacturer;
+import mk.ukim.finki.wp.lab.model.*;
 import mk.ukim.finki.wp.lab.service.BalloonService;
 import mk.ukim.finki.wp.lab.service.ManufacturerService;
+import mk.ukim.finki.wp.lab.service.OrderService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,9 +23,12 @@ public class BalloonController {
 
     private final ManufacturerService manufacturerService;
 
-    public BalloonController(BalloonService balloonService, ManufacturerService manufacturerService) {
+    private final OrderService orderService;
+
+    public BalloonController(BalloonService balloonService, ManufacturerService manufacturerService, OrderService orderService) {
         this.balloonService = balloonService;
         this.manufacturerService = manufacturerService;
+        this.orderService = orderService;
     }
 
 
@@ -42,6 +50,7 @@ public class BalloonController {
             List<Manufacturer> manufacturers = this.manufacturerService.findAll();
             model.addAttribute("manufacturers",manufacturers);
             model.addAttribute("balloon",balloon);
+            this.balloonService.deleteById(id);
             return "add-balloon";
         }
         return "redirect:/balloons?error=BalloonNotFound";
@@ -69,6 +78,29 @@ public class BalloonController {
     @GetMapping("/orders")
     public String getOrdersPage(Model model){
 
+        model.addAttribute("orders",orderService.listAll());
+        return "userOrders";
+    }
+
+    @GetMapping("/getOrder")
+    public String getPlaceOrderPage(Model model){
+
+        return "place-Order";
+    }
+
+    @PostMapping("/placeOrder")
+    public String placeOrder(Model model, HttpSession session
+            ,@RequestParam("date_Created")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateCreated
+    ){
+
+
+        orderService.placeOrder(session.getAttribute("color").toString()
+                ,session.getAttribute("clientName").toString()
+                ,session.getAttribute("size").toString()
+                , dateCreated);
+
+        model.addAttribute("orders",orderService.listAll());
         return "userOrders";
     }
 }

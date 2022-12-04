@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.repository;
+package mk.ukim.finki.wp.lab.repository.impl;
 
 import mk.ukim.finki.wp.lab.Data.DataHolder;
 import mk.ukim.finki.wp.lab.model.Balloon;
@@ -22,7 +22,7 @@ public class BalloonRepository {
 
     public void createBalloon(String name, String description, Manufacturer manufacturer){
         DataHolder.balloons.removeIf(b->b.getName().equals(name));
-        DataHolder.balloons.add(new Balloon(name,description,DataHolder.generateId(),manufacturer));
+        DataHolder.balloons.add(new Balloon(name,description,manufacturer));
     }
 
     public void deleteById(Long id){

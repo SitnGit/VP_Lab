@@ -17,22 +17,22 @@ public class DataHolder {
 
     @PostConstruct
     public void init(){
-        balloons.add(new Balloon("First","blue", 1L,new Manufacturer(1L,"first","Macedonia","adress")));
-        balloons.add(new Balloon("Second","red",2L,new Manufacturer(2L,"second","Macedonia","adress")));
-        balloons.add(new Balloon("Third","green",3L,new Manufacturer(3L,"third","Macedonia","adress")));
-        balloons.add(new Balloon("Forth","yellow",4L,new Manufacturer(4L,"forth","Macedonia","adress")));
-        balloons.add(new Balloon("Fifth","magenta",5L,new Manufacturer(5L,"fifth","Macedonia","adress")));
-        balloons.add(new Balloon("Sixth","orange",6L,new Manufacturer(1L,"first","Macedonia","adress")));
-        balloons.add(new Balloon("Seventh","cyan",7L,new Manufacturer(2L,"second","Macedonia","adress")));
-        balloons.add(new Balloon("Eight","white",8L,new Manufacturer(3L,"third","Macedonia","adress")));
-        balloons.add(new Balloon("Ninth","black",9L,new Manufacturer(4L,"forth","Macedonia","adress")));
-        balloons.add(new Balloon("Tenth","pink",10L,new Manufacturer(5L,"fifth","Macedonia","adress")));
+        balloons.add(new Balloon("First","blue", new Manufacturer("first","Macedonia","adress")));
+        balloons.add(new Balloon("Second","red",new Manufacturer("second","Macedonia","adress")));
+        balloons.add(new Balloon("Third","green",new Manufacturer("third","Macedonia","adress")));
+        balloons.add(new Balloon("Forth","yellow",new Manufacturer("forth","Macedonia","adress")));
+        balloons.add(new Balloon("Fifth","magenta",new Manufacturer("fifth","Macedonia","adress")));
+        balloons.add(new Balloon("Sixth","orange",new Manufacturer("first","Macedonia","adress")));
+        balloons.add(new Balloon("Seventh","cyan",new Manufacturer("second","Macedonia","adress")));
+        balloons.add(new Balloon("Eight","white",new Manufacturer("third","Macedonia","adress")));
+        balloons.add(new Balloon("Ninth","black",new Manufacturer("forth","Macedonia","adress")));
+        balloons.add(new Balloon("Tenth","pink",new Manufacturer("fifth","Macedonia","adress")));
 
-        manufacturers.add(new Manufacturer(1L,"first","Macedonia","adress"));
-        manufacturers.add(new Manufacturer(2L,"second","Macedonia","adress"));
-        manufacturers.add(new Manufacturer(3L,"third","Macedonia","adress"));
-        manufacturers.add(new Manufacturer(4L,"forth","Macedonia","adress"));
-        manufacturers.add(new Manufacturer(5L,"fifth","Macedonia","adress"));
+        manufacturers.add(new Manufacturer("first","Macedonia","adress"));
+        manufacturers.add(new Manufacturer("second","Macedonia","adress"));
+        manufacturers.add(new Manufacturer("third","Macedonia","adress"));
+        manufacturers.add(new Manufacturer("forth","Macedonia","adress"));
+        manufacturers.add(new Manufacturer("fifth","Macedonia","adress"));
     }
 
     public static Long generateId(){

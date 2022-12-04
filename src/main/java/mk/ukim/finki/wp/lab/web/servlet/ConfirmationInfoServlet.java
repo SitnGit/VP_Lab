@@ -1,6 +1,9 @@
 package mk.ukim.finki.wp.lab.web.servlet;
 
 
+import mk.ukim.finki.wp.lab.model.Order;
+import mk.ukim.finki.wp.lab.model.ShoppingCart;
+import mk.ukim.finki.wp.lab.model.User;
 import mk.ukim.finki.wp.lab.service.BalloonService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -26,20 +29,6 @@ public class ConfirmationInfoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        List<List<String>> orders = new ArrayList<>();
-        if(req.getSession().getAttribute("orders")!=null)
-            orders = (List<List<String>>) req.getSession().getAttribute("orders");
-
-        List<String> order = new ArrayList<>();
-        order.add(req.getSession().getAttribute("clientName").toString());
-        order.add(req.getSession().getAttribute("clientAddress").toString());
-        order.add(req.getSession().getAttribute("color").toString());
-        order.add(req.getSession().getAttribute("size").toString());
-
-        orders.add(order);
-
-        req.getSession().setAttribute("orders",orders);
 
         WebContext context = new WebContext(req, resp, req.getServletContext());
         this.springTemplateEngine.process("confirmationInfo.html", context, resp.getWriter());
