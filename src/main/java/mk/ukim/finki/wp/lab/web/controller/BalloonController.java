@@ -23,12 +23,9 @@ public class BalloonController {
 
     private final ManufacturerService manufacturerService;
 
-    private final OrderService orderService;
-
-    public BalloonController(BalloonService balloonService, ManufacturerService manufacturerService, OrderService orderService) {
+    public BalloonController(BalloonService balloonService, ManufacturerService manufacturerService) {
         this.balloonService = balloonService;
         this.manufacturerService = manufacturerService;
-        this.orderService = orderService;
     }
 
 
@@ -75,32 +72,5 @@ public class BalloonController {
         return "redirect:/balloons";
     }
 
-    @GetMapping("/orders")
-    public String getOrdersPage(Model model){
 
-        model.addAttribute("orders",orderService.listAll());
-        return "userOrders";
-    }
-
-    @GetMapping("/getOrder")
-    public String getPlaceOrderPage(Model model){
-
-        return "place-Order";
-    }
-
-    @PostMapping("/placeOrder")
-    public String placeOrder(Model model, HttpSession session
-            ,@RequestParam("date_Created")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateCreated
-    ){
-
-
-        orderService.placeOrder(session.getAttribute("color").toString()
-                ,session.getAttribute("clientName").toString()
-                ,session.getAttribute("size").toString()
-                , dateCreated);
-
-        model.addAttribute("orders",orderService.listAll());
-        return "userOrders";
-    }
 }
