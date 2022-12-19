@@ -5,6 +5,7 @@ import mk.ukim.finki.wp.lab.service.BalloonService;
 import mk.ukim.finki.wp.lab.service.ManufacturerService;
 import mk.ukim.finki.wp.lab.service.OrderService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,7 @@ public class BalloonController {
     }
 
     @GetMapping("/add-form")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getAddBalloonPage(Model model){
         List<Manufacturer> manufacturers = this.manufacturerService.findAll();
         model.addAttribute("manufacturers",manufacturers);

@@ -1,5 +1,7 @@
 package mk.ukim.finki.wp.lab.web.filter;
 
+import org.springframework.context.annotation.Profile;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter
+@Profile("servlet")
 public class CheckColorFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
